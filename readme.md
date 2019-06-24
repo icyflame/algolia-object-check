@@ -5,10 +5,11 @@
 ## Usage
 
 ```sh
+# main.go checks for the existence of objects
 $ go run main.go -app_id $_APP_ID -api_key $_READ_KEY -index "index_name" -input all_ids
 
-$ go run main-chunked.go -app_id $_APP_ID -api_key $_READ_KEY -index "index_name" -input all_ids
-
+# check-attribute.go checks for the existence of a particular attribute and
+# print the value if required
 $ go run check-attribute.go -app_id $_APP_ID -api_key $_READ_KEY -index "index_name" -input all_ids -attr name -show_attr
 ```
 
