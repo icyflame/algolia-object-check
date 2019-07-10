@@ -12,7 +12,7 @@ import (
 )
 
 func main() {
-	fmt.Println("go run main-chunked.go -app_id $APP_ID -api_key $READ_KEY -index \"index_name\" -input test_file")
+	fmt.Println("go run main.go -app_id $APP_ID -api_key $READ_KEY -index \"index_name\" -input test_file")
 	input := flag.String("input", "", "the file to read the IDs from")
 	app_id := flag.String("app_id", "", "application ID for the algolia cluster to use")
 	api_key := flag.String("api_key", "", "API key for the algolia cluster being used")
@@ -41,6 +41,7 @@ func main() {
 
 	const algoliaMaxGetSize = 1000
 	numChunks := int(math.Ceil(float64(len(listOfObjects)) / float64(algoliaMaxGetSize)))
+	checked := 0
 	exists := 0
 
 	for i := 0; i < numChunks; i++ {
@@ -67,12 +68,15 @@ func main() {
 		}
 
 		exists += thisChunkExists
+		checked += len(thisChunk)
 
-		log.Printf("Chunk %d finished: Returned: %d; %d/%d exist!",
+		log.Printf("Chunk %d finished: Returned: %d; Exist: %d/%d; Cumulative: %d/%d",
 			i+1,
 			len(objects),
 			thisChunkExists,
 			len(thisChunk),
+			exists,
+			checked,
 		)
 	}
 

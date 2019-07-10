@@ -66,7 +66,7 @@ func main() {
 				attrExists += 1
 			}
 			if *showAttr {
-				log.Print(v["objectID"], ": ", v[*attributeName])
+				fmt.Printf("%s: %+v", v["objectID"], v[*attributeName])
 			}
 		}
 	}
