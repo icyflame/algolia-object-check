@@ -12,11 +12,12 @@ import (
 )
 
 func main() {
-	fmt.Println("go run main.go -app_id $APP_ID -api_key $READ_KEY -index \"index_name\" -input test_file")
+	fmt.Println("go run main.go -app_id $APP_ID -api_key $READ_KEY -index \"index_name\" -input test_file -showID")
 	input := flag.String("input", "", "the file to read the IDs from")
 	app_id := flag.String("app_id", "", "application ID for the algolia cluster to use")
 	api_key := flag.String("api_key", "", "API key for the algolia cluster being used")
 	indexName := flag.String("index", "", "Name of the index this check is being performed on")
+	showID := flag.Bool("show_id", false, "Whether to print the IDs of the objects that exist")
 
 	flag.Parse()
 
@@ -64,6 +65,10 @@ func main() {
 		for _, v := range objects {
 			if v != nil {
 				thisChunkExists += 1
+
+				if *showID {
+					log.Printf("%s", v["objectID"])
+				}
 			}
 		}
 
