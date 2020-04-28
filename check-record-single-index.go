@@ -13,6 +13,7 @@ import (
 
 func main() {
 	fmt.Println("go run main.go -app_id $APP_ID -api_key $READ_KEY -index \"index_name\" -input test_file -showID")
+
 	input := flag.String("input", "", "the file to read the IDs from")
 	app_id := flag.String("app_id", "", "application ID for the algolia cluster to use")
 	api_key := flag.String("api_key", "", "API key for the algolia cluster being used")
@@ -20,6 +21,11 @@ func main() {
 	showID := flag.Bool("show_id", false, "Whether to print the IDs of the objects that exist")
 
 	flag.Parse()
+
+	if *input == "" {
+		flag.PrintDefaults()
+		log.Fatal("Input file name must be non-empty")
+	}
 
 	client := algoliasearch.NewClient(*app_id, *api_key)
 	index := client.InitIndex(*indexName)

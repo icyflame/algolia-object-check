@@ -23,7 +23,8 @@ func main() {
 	flag.Parse()
 
 	if *attributeName == "" {
-		log.Fatal(fmt.Errorf("Attribute name MUST be non-empty. Use main.go if you are interested only in existence of objects"))
+		flag.PrintDefaults()
+		log.Fatal(fmt.Errorf("Attribute name MUST be non-empty. Use check-record-single-index.go if you are interested only in existence of objects"))
 	}
 
 	client := algoliasearch.NewClient(*app_id, *api_key)
